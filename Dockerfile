@@ -1,4 +1,4 @@
-FROM tophackathon/ci-java8:1.0
+FROM tophackathon/ci-java8:1.1
 
 USER root
 
@@ -8,11 +8,6 @@ RUN /usr/local/bin/plugins.sh /usr/share/jenkins/plugins.txt
 RUN apt-get update && apt-get upgrade -y
 
 RUN apt-get install nano -y
-
-# RUN apt-get download maven -y
-# RUN dpkg -i --force-depends $(find . -iname *.deb)
-
-#COPY environment /etc/environment
 
 ENV MAVEN_VERSION 3.3.3
 
