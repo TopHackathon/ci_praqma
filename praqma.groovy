@@ -4,7 +4,7 @@ import jenkins.model.*;
 
 Thread.start {
       sleep 10000
-      println "--> setting agent port for jnlp"
+      println "--> adding praqma template job"
       Jenkins.instance.setSlaveAgentPort(50000)
 
       def jobName1 = "praqma-job"
