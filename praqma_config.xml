@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<project>
+  <actions/>
+  <description></description>
+  <keepDependencies>false</keepDependencies>
+  <properties/>
+  <scm class="hudson.plugins.git.GitSCM" plugin="git@2.3.5">
+    <configVersion>2</configVersion>
+    <userRemoteConfigs>
+      <hudson.plugins.git.UserRemoteConfig>
+        <url>git@github.com:TopHackathon/example-app.git</url>
+        <credentialsId>37f3cd00-f981-469c-9c70-b1da3699c0d1</credentialsId>
+      </hudson.plugins.git.UserRemoteConfig>
+    </userRemoteConfigs>
+    <branches>
+      <hudson.plugins.git.BranchSpec>
+        <name>**/ready/**</name>
+      </hudson.plugins.git.BranchSpec>
+    </branches>
+    <doGenerateSubmoduleConfigurations>false</doGenerateSubmoduleConfigurations>
+    <submoduleCfg class="list"/>
+    <extensions>
+      <hudson.plugins.git.extensions.impl.WipeWorkspace/>
+      <hudson.plugins.git.extensions.impl.PruneStaleBranch/>
+    </extensions>
+  </scm>
+  <canRoam>true</canRoam>
+  <disabled>false</disabled>
+  <blockBuildWhenDownstreamBuilding>false</blockBuildWhenDownstreamBuilding>
+  <blockBuildWhenUpstreamBuilding>false</blockBuildWhenUpstreamBuilding>
+  <triggers/>
+  <concurrentBuild>false</concurrentBuild>
+  <builders>
+    <hudson.tasks.Maven>
+      <targets>clean test</targets>
+      <mavenName>maven</mavenName>
+      <usePrivateRepository>false</usePrivateRepository>
+      <settings class="jenkins.mvn.DefaultSettingsProvider"/>
+      <globalSettings class="jenkins.mvn.DefaultGlobalSettingsProvider"/>
+    </hudson.tasks.Maven>
+  </builders>
+  <publishers>
+    <org.jenkinsci.plugins.pretestedintegration.PretestedIntegrationPostCheckout plugin="pretested-integration@2.2.3"/>
+  </publishers>
+  <buildWrappers>
+    <org.jenkinsci.plugins.pretestedintegration.PretestedIntegrationBuildWrapper plugin="pretested-integration@2.2.3">
+      <scmBridge class="org.jenkinsci.plugins.pretestedintegration.scm.git.GitBridge">
+        <branch>master</branch>
+        <integrationStrategy class="org.jenkinsci.plugins.pretestedintegration.scm.git.SquashCommitStrategy"/>
+        <repoName>origin</repoName>
+      </scmBridge>
+      <rollbackEnabled>false</rollbackEnabled>
+    </org.jenkinsci.plugins.pretestedintegration.PretestedIntegrationBuildWrapper>
+  </buildWrappers>
+</project>
