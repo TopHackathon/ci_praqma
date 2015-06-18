@@ -1,7 +1,5 @@
 FROM tophackathon/ci-java8:1.1
 
-USER root
-
 # Create the praqma Jenkins template
 COPY praqma_config.xml /var/jenkins_home/templates/praqma_config.xml
 COPY praqma.groovy /usr/share/jenkins/ref/init.groovy.d/praqma.groovy
@@ -22,7 +20,11 @@ RUN curl -fsSL http://archive.apache.org/dist/maven/maven-3/$MAVEN_VERSION/binar
 
 ENV MAVEN_HOME /usr/share/maven
 
-USER jenkins
+# Create ssh keys.
+COPY id_rsa /var/jenkins_home/.ssh/id_rsa
+
+
+#USER jenkins
 
 # Create global git configuration for Jenkins to use
 RUN git config --global user.email "rmx@tophackathon.org"
